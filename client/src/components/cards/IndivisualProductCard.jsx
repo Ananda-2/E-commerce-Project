@@ -1,166 +1,41 @@
-
-
-
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { CircularProgress, Rating } from "@mui/material";
-import styled from "styled-components";
-import {
-  AddShoppingCartOutlined,
-  FavoriteBorder,
-  FavoriteRounded,
-} from "@mui/icons-material";
-
-const Card = styled.div`
-  width: 250px;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  transition: all 0.3s ease-out;
-  cursor: pointer;
-  @media (max-width: 600px) {
-    width: 170px;
-  }
-`;
-const Image = styled.img`
-  width: 100%;
-  height: 320px;
-  border-radius: 6px;
-  object-fit: cover;
-  transition: all 0.3s ease-out;
-  @media (max-width: 600px) {
-    height: 240px;
-  }
-`;
-const Menu = styled.div`
-  position: absolute;
-  z-index: 10;
-  color: ${({ theme }) => theme.text_primary};
-  top: 14px;
-  right: 14px;
-  display: none;
-  flex-direction: column;
-  gap: 12px;
-`;
-
-const Top = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  border-radius: 6px;
-  transition: all 0.3s ease-out;
-  &:hover {
-    background-color: ${({ theme }) => theme.primary};
-  }
-
-  &:hover ${Image} {
-    opacity: 0.5;
-    
-  }
-  &:hover ${Menu} {
-    display: flex;
-  }
-`;
-const MenuItem = styled.div`
-  border-radius: 50%;
-  width: 18px;
-  height: 18px;
-  background: white;
-  padding: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 200;
-`;
-
-const Rate = styled.div`
-  position: absolute;
-  z-index: 10;
-  color: ${({ theme }) => theme.text_primary};
-  bottom: 8px;
-  left: 8px;
-  padding: 4px 8px;
-  border-radius: 4px;
-  background: white;
-  display: flex;
-  align-items: center;
-  opacity: 0.9;
-`;
-
-const Details = styled.div`
-import { useDispatch } from "react-redux";
-import { openSnackbar } from "../../redux/reducers/snackbarSlice";
-  display: flex;
-  gap: 6px;
-  flex-direction: column;
-  padding: 4px 10px;
-`;
-const Title = styled.div`
-  font-size: 16px;
-  font-weight: 700;
-  color: ${({ theme }) => theme.text_primary};
-`;
-const Desc = styled.div`
-  font-size: 16px;
-  font-weight: 400;
-  color: ${({ theme }) => theme.text_primary};
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-`;
-const Price = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 18px;
-  font-weight: 500;
-  color: ${({ theme }) => theme.text_primary};
-`;
-const Span = styled.div`
-  font-size: 14px;
-  font-weight: 500;
-  color: ${({ theme }) => theme.text_secondary + 60};
-  text-decoration: line-through;
-  text-decoration-color: ${({ theme }) => theme.text_secondary + 50};
-`;
-const Percent = styled.div`
-  font-size: 12px;
-  font-weight: 500;
-  color: green;
-`;
+import React from "react";
+import { Rating } from "@mui/material";
+import { FavoriteRounded, AddShoppingCartOutlined } from "@mui/icons-material";
 
 const IndivisualProductCard = () => {
   return (
-    <Card>
-      <Top>
-        <Image src='https://assets.ajio.com/medias/sys_master/root/20231205/JltF/656ed471afa4cf41f5b4f8b2/-473Wx593H-462329145-green-MODEL.jpg' />
-        <Menu>
-          <MenuItem
-          >
-                  <FavoriteRounded sx={{ fontSize: "20px", color: "red" }} />
-
-          </MenuItem>{" "}
-          <MenuItem>
-            <AddShoppingCartOutlined
-              sx={{ color: "inherit", fontSize: "20px" }}
-            />
-          </MenuItem>
-        </Menu>
-        <Rate>
+    <div className="w-72 flex flex-col gap-2 transition-all duration-300 ease-out cursor-pointer  ">
+      <div className="relative rounded-md overflow-hidden group ">
+        <img
+          src="https://assets.ajio.com/medias/sys_master/root/20231205/JltF/656ed471afa4cf41f5b4f8b2/-473Wx593H-462329145-green-MODEL.jpg"
+          className="w-full h-80 object-cover transition-opacity duration-300 ease-out hover:opacity-50"
+          alt="Product"
+        />
+        <div className="absolute invisible group-hover:visible top-2 right-2 z-10 flex flex-col gap-2  ">
+          <div className="rounded-full w-10 h-10 bg-white flex items-center justify-center z-10 ">
+            <FavoriteRounded className="text-red-500 z-10 " sx={{ fontSize: "20px" }} />
+          </div>
+          <div className="rounded-full w-10 h-10 bg-white flex items-center justify-center">
+            <AddShoppingCartOutlined sx={{ color: "inherit", fontSize: "20px" }} />
+          </div>
+        </div>
+        <div className="absolute bottom-2 left-2 z-10 bg-white px-2 py-1 rounded-md flex items-center opacity-90">
           <Rating value={3.5} sx={{ fontSize: "14px" }} />
-        </Rate>
-      </Top>
-      <Details>
-        <Title>Product Title</Title>
-        <Desc>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eius, animi!</Desc>
-        <Price>
-          1200<Span>$1500</Span>
-          <Percent>20 % Off</Percent>
-        </Price>
-      </Details>
-    </Card>
+        </div>
+      </div>
+      <div className="flex flex-col gap-1 p-2">
+        <div className="text-lg font-semibold text-primary">Product Title</div>
+        <div className="text-primary text-sm overflow-hidden whitespace-nowrap overflow-ellipsis">
+          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eius, animi!
+        </div>
+        <div className="flex items-center gap-2">
+          <div className="text-lg font-medium">$1200</div>
+          <div className="text-secondary-60 line-through">$1500</div>
+          <div className="text-green-500 text-xs font-medium">20% Off</div>
+        </div>
+      </div>
+    </div>
   );
 };
 
-export default IndivisualProductCard ;
+export default IndivisualProductCard;
