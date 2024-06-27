@@ -23,7 +23,7 @@ router.patch("/cart" ,verifyToken , removeFromCart) ;
 // favourite  routes
 router.get("/favourite" , verifyToken ,getUserFavourites) ;
 router.post("/favourite" ,verifyToken , addToFavorites) ;
-router.patch("/favourite" ,verifyToken , removeFromCart) ;
+router.patch("/favourite" ,verifyToken , removeFromFavorites) ;
 
 
 export default router ;

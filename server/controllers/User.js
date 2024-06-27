@@ -69,34 +69,6 @@ export const UserSignIn = async (req,res,next) => {
     }
 }
 
-export const addToCart = async(req,res) => {
-    try{
-        const {productId,quantity} = req.body ;
-        const userJWT = req.user ;
-
-        const user = await User.findById(userJWT._id) ;
-
-        if(!user){
-            return next("User not found . Please Login to add") ;
-        }
-
-        const ItemExistInCart = user.cart.findIndex((item) => 
-            item.product.equals(productId)
-        );
-
-        if(ItemExistInCart === -1 ) {
-            user.cart.push({product:productId , quantity})
-        }else{
-            user.cart[ItemExistInCart].quantity+=quantity ;
-        }
-
-        await user.save() ;
-        return res.status(200).json({message : "added to cart" , user })
-
-    }catch(err){
-        return next(err) ;
-    }
-}
 
 
   
@@ -155,7 +127,7 @@ export const removeFromCart = async(req,res,next) => {
     try{
         const {productId,quantity} = req.body ;
         const userJWT = req.user ;
-        const user = await User.findById(userJWT) ;
+        const user = await User.findById(userJWT.id) ;
     
         if(!user){
             return next("User Not found . please Login first") ;
@@ -179,11 +151,42 @@ export const removeFromCart = async(req,res,next) => {
     }
 }
 
+export const addToCart = async(req,res,next) => {
+    try{
+        const {productId,quantity} = req.body ;
+        const userJWT = req.user ;
+
+        const user = await User.findById(userJWT.id) ;
+
+        // if(!user){
+        //     return next("User not found . Please Login to add") ;
+        // }
+
+        console.log(user) ;
+
+        const ItemExistInCart = user.cart.findIndex((item) => 
+            item?.product?.equals(productId)
+        );
+
+        if(ItemExistInCart === -1 ) {
+            user.cart.push({product:productId , quantity})
+        }else{
+            user.cart[ItemExistInCart].quantity+=quantity ;
+        }
+
+        await user.save() ;
+        return res.status(200).json({message : "added to cart" , user })
+
+    }catch(err){
+        next(err) ;
+    }
+}
+
 
 export const getAllCartItems = async (req,res,next) => {
     try{
         const userJWT = req.user ;
-        const user = await User.findById(userJWT._id).populate({
+        const user = await User.findById(userJWT.id).populate({
             path : "cart.product",
             model : "Products",
         });
@@ -191,7 +194,7 @@ export const getAllCartItems = async (req,res,next) => {
         return res.status(200).json(cartItems);
 
     }catch(err){
-        return next(err) ;
+        next(err) ;
     }
 }
 
@@ -220,8 +223,6 @@ export const placeOrder = async (req, res, next) => {
       next(err);
     }
 };
-
-
 
 export const getAllOrders = async (req, res, next) => {
 try {
