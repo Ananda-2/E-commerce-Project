@@ -33,22 +33,6 @@ export const removeFromCart = async (token,data) =>
     headers : { Authorization : `Bearer ${token}` } ,
 })
 
-// Favourite integrations---------------------------------
-
-// export const getFavouritesDetails = async (token) =>
-//     await API.get(`/user/favourite` , {
-//     headers : { Authorization : `Bearer ${token}` } ,
-// })
-// export const addToFavourites = async (token,data) =>
-//     await API.post(`/user/favourite/` , data , {
-//     headers : { Authorization : `Bearer ${token}` } ,
-// })
-// export const removeFromFavorites = async (token,data) =>
-//     await API.patch(`/user/favourite/` ,data, {
-//     headers : { Authorization : `Bearer ${token}` } ,
-// })
-
-
 
 export const getFavouritesDetails = async (token) =>
     await API.get(`/user/favourite`, {

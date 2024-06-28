@@ -127,7 +127,7 @@ const IndivisualProductCard = ({product}) => {
           <Rating value={3.5} sx={{ fontSize: "14px" }} />
         </div>
       </div>
-      <div className="flex flex-col gap-1 p-2" onClick={() => navigate(`product/${product._id}`)}>
+      <div className="flex flex-col gap-1 p-2" onClick={() => window.location.replace(`/product/${product._id}`)}>
         <div className="text-lg font-semibold text-primary">{product?.title}</div>
         <div className="text-primary text-sm overflow-hidden whitespace-nowrap overflow-ellipsis">
           {product?.desc}

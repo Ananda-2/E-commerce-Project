@@ -123,12 +123,12 @@ const Cart = () => {
         );
         return;
       }
-      console.log("_________11111111111111111111111111") ;
+      // console.log("_________11111111111111111111111111") ;
       
       const token = localStorage.getItem("krist-app-token");
       const totalAmount = TotalAmount();
 
-      console.log("_________________________2222222222222222222222222") ;
+      // console.log("_________________________2222222222222222222222222") ;
       
       // console.log(orderDetails);
       
@@ -195,15 +195,15 @@ const Cart = () => {
 
   return (
 
-    <div>
+    <div className="min-h-screen">
 
-      <h2 className="text-xl font-bold mb-4 text-center">Cart Products</h2>
+      <h2 className="text-xl font-bold mb-4 text-center mt-10 text-gray-600 ">Cart Products</h2>
 
       {loading ? <CircularProgress/> :
       
         <>
 
-        {products?.length === 0 ? <>Your Cart Is Empty </> : <>
+        {products?.length === 0 ? <div className="text-center my-10 text-gray-500">Your Cart Is Empty </div> : <>
         
         
         
