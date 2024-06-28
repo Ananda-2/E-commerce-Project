@@ -3,16 +3,42 @@ import IndivisualProductCard from '../components/cards/IndivisualProductCard';
 import styled from "styled-components";
 import { category, filter } from "../utils/data";
 import { CircularProgress, Slider } from "@mui/material";
+import {getAllProducts} from "./../api/index"
 
 const ShopListing = () => {
+  const [products , setProducts] = useState() ;
   const [priceRange, setPriceRange] = useState([0, 1000]);
-  const [selectedSizes, setSelectedSizes] = useState(["S", "M", "L", "XL"]); // Default selected sizes
+  const [selectedSizes, setSelectedSizes] = useState(["S", "M", "L", "XL" , "XXL"]); // Default selected sizes
   const [selectedCategories, setSelectedCategories] = useState([
     "Men",
     "Women",
     "Kids",
     "Bags",
   ]);
+
+
+  const getFilteredProductsData = async () => {
+    // setLoading(true);
+    // Call the API function for filtered products
+    await getAllProducts(
+      `minPrice=${priceRange[0]}&maxPrice=${priceRange[1]}${
+        selectedSizes.length > 0 ? `&sizes=${selectedSizes.join(",")}` : ""
+      }${
+        selectedCategories.length > 0
+          ? `&categories=${selectedCategories.join(",")}`
+          : ""
+      }`
+    ).then((res) => {
+      setProducts(res.data);
+      // setLoading(false);
+    });
+  };
+
+  useEffect(() => {
+    getFilteredProductsData();
+  }, [priceRange, selectedSizes, selectedCategories]);
+
+
 
   return (
     <div className="p-8 overflow-y-hidden flex flex-col  gap-8 md:flex-row  md:overflow-y-scroll bg-gray-100">
@@ -97,20 +123,11 @@ const ShopListing = () => {
 
 
       <div className='flex flex-wrap gap-4 mt-8 items-center justify-center'>
-        <IndivisualProductCard/>
-        <IndivisualProductCard/>
-        <IndivisualProductCard/>
-        <IndivisualProductCard/>
-        <IndivisualProductCard/>
-        <IndivisualProductCard/>
-        <IndivisualProductCard/>
-        <IndivisualProductCard/>
-        <IndivisualProductCard/>
-        <IndivisualProductCard/>
-        <IndivisualProductCard/>
-        <IndivisualProductCard/>
-        <IndivisualProductCard/>
-        <IndivisualProductCard/>
+          {
+            products?.map((p) =>(
+              <IndivisualProductCard product={p}/>
+            ))
+          }
       </div>
 
     </div>

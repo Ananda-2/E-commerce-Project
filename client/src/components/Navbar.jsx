@@ -1,192 +1,3 @@
-// import React, { useState } from "react";
-// import LogoImg from "../utils/Images/Logo.jpg";
-// import { NavLink } from "react-router-dom";
-// import Button from "../components/Button";
-// import {
-//   FavoriteBorder,
-//   MenuRounded,
-//   SearchRounded,
-//   ShoppingCartOutlined,
-// } from "@mui/icons-material";
-// import { Avatar } from "@mui/material";
-
-// const Navbar = ({ openAuth, setOpenAuth, currentUser }) => {
-//   const [isOpen, setIsOpen] = useState(false);
-//   console.log(openAuth)
-
-//   return (
-//     <div className="bg-black h-20 flex items-center justify-center sticky top-0 z-10 text-white">
-//       <div className="w-full max-w-screen-xl px-6 flex gap-3.5 items-center justify-between">
-//         <div
-//           className="text-white flex items-center md:hidden"
-//           onClick={() => setIsOpen(!isOpen)}
-//         >
-//           <MenuRounded style={{ color: "inherit" }} />
-//         </div>
-
-//         {/* Logo---------------------------------------------------------- */}
-
-//         <div className="flex items-center">
-//           <img
-//             src={LogoImg}
-//             height={100}
-//             width={100}
-//             alt="Logo"
-//             className="h-8.5"
-//           />
-//         </div>
-
-//         {/* Items in desktop --------------------------------------------------- */}
-
-//         <ul className="hidden md:flex items-center justify-center gap-8 list-none">
-//           <li>
-//             <NavLink
-//               to="/"
-//               className="text-white font-medium transition duration-300 hover:text-blue-500"
-//               activeClassName="text-blue-500 border-b-2 border-blue-500"
-//             >
-//               Home
-//             </NavLink>
-//           </li>
-//           <li>
-//             <NavLink
-//               to="/Shop"
-//               className="text-white font-medium transition duration-300 hover:text-blue-500"
-//               activeClassName="text-blue-500 border-b-2 border-blue-500"
-//             >
-//               Shop
-//             </NavLink>
-//           </li>
-//           <li>
-//             <NavLink
-//               to="/New_Arrivals"
-//               className="text-white font-medium transition duration-300 hover:text-blue-500"
-//               activeClassName="text-blue-500 border-b-2 border-blue-500"
-//             >
-//               New Arrivals
-//             </NavLink>
-//           </li>
-//           <li>
-//             <NavLink
-//               to="/Orders"
-//               className="text-white font-medium transition duration-300 hover:text-blue-500"
-//               activeClassName="text-blue-500 border-b-2 border-blue-500"
-//             >
-//               Orders
-//             </NavLink>
-//           </li>
-//           <li>
-//             <NavLink
-//               to="/Contact"
-//               className="text-white font-medium transition duration-300 hover:text-blue-500"
-//               activeClassName="text-blue-500 border-b-2 border-blue-500"
-//             >
-//               Contact
-//             </NavLink>
-//           </li>
-//         </ul>
-
-
-//         {/* All Pages in small screen ------------------------------------------------------------------------------ */}
-
-//         {isOpen && (
-//           <ul className="flex flex-col items-start gap-4 p-3 w-4/5 bg-gray-800 absolute top-20 right-0 transition duration-300 ease-in-out transform md:hidden">
-//             <li>
-//               <NavLink
-//                 to="/"
-//                 className="text-white font-medium transition duration-300 hover:text-blue-500"
-//                 onClick={() => setIsOpen(false)}
-//               >
-//                 Home
-//               </NavLink>
-//             </li>
-//             <li>
-//               <NavLink
-//                 to="/Shop"
-//                 className="text-white font-medium transition duration-300 hover:text-blue-500"
-//                 onClick={() => setIsOpen(false)}
-//               >
-//                 Shop
-//               </NavLink>
-//             </li>
-//             <li>
-//               <NavLink
-//                 to="/New_Arrivals"
-//                 className="text-white font-medium transition duration-300 hover:text-blue-500"
-//                 onClick={() => setIsOpen(false)}
-//               >
-//                 New Arrivals
-//               </NavLink>
-//             </li>
-//             <li>
-//               <NavLink
-//                 to="/Orders"
-//                 className="text-white font-medium transition duration-300 hover:text-blue-500"
-//                 onClick={() => setIsOpen(false)}
-//               >
-//                 Orders
-//               </NavLink>
-//             </li>
-//             <li>
-//               <NavLink
-//                 to="/Contact"
-//                 className="text-white font-medium transition duration-300 hover:text-blue-500"
-//                 onClick={() => setIsOpen(false)}
-//               >
-//                 Contact
-//               </NavLink>
-//             </li>
-//           </ul>
-//         )}
-
-
-//         {/* Search , WishList , Cart Icons---------------------------- */}
-
-
-//         <div className=" hidden md:flex items-center justify-center  text-white">
-//           <NavLink to="/search" className= 'px-2'>
-//             <SearchRounded sx={{ color: "inherit", fontSize: "30px" }} />
-//           </NavLink>
-
-//           <NavLink to="/favorite"className= 'px-2'>
-//             <FavoriteBorder sx={{ color: "inherit", fontSize: "28px" }} />
-//           </NavLink>
-
-//           <NavLink to="/cart" className= 'px-2'>
-//             <ShoppingCartOutlined sx={{ color: "inherit", fontSize: "28px" }} />
-//           </NavLink>
-
-//         </div>
-
-//         {/* Avatar ------------------------------------------------------------------------------ */}
-
-//         {/* <Avatar
-//           src={currentUser?.img}
-//           sx={{ color: "inherit", fontSize: "28px" }}
-//         ></Avatar> */}
-
-//         {/* SignIn SignUp -------------------------------------------------------------------- */}
-
-//         <div className="flex gap-3">
-//           {/* <Button
-//             text="Sign Up"
-//             outlined
-//             small
-//             onClick={() => setOpenAuth(!openAuth)}
-//           /> */}
-//           <Button text="Sign In" small onClick={() => setOpenAuth(!openAuth)} />
-//         </div>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default Navbar;
-
-
-
-
-
 import React, { useState } from "react";
 import styled from "styled-components";
 import LogoImg from "../utils/Images/Logo.jpg";
@@ -199,6 +10,9 @@ import {
   ShoppingCartOutlined,
 } from "@mui/icons-material";
 import { Avatar } from "@mui/material";
+import { useDispatch } from "react-redux";
+import {logout} from '../redux/reducers/userSlice.js'
+
 
 const Nav = styled.div`
   background-color: ${({ theme }) => theme.bg};
@@ -333,7 +147,9 @@ const TextButton = styled.div`
 
 const Navbar = ({ openAuth, setOpenAuth, currentUser }) => {
   const [isOpen, setIsOpen] = useState(false);
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
+  // console.log(currentUser) ;
+  
   return (
     <Nav className=" bg-black ">
       <NavbarContainer>
@@ -371,8 +187,7 @@ const Navbar = ({ openAuth, setOpenAuth, currentUser }) => {
               Contact
             </Navlink>
             {currentUser ? (
-              // <Button text="Logout" small onClick={() => dispatch(logout())} />
-              <>HII</>
+              <Button text="Logout" small onClick={() => dispatch(logout())} />
             ) : (
               <div
                 style={{
@@ -404,7 +219,7 @@ const Navbar = ({ openAuth, setOpenAuth, currentUser }) => {
 
           {currentUser ? (
             <>
-              <Navlink to="/favorite">
+              <Navlink to="/favourite">
                 <FavoriteBorder sx={{ color: "inherit", fontSize: "28px" }} />
               </Navlink>
               <Navlink to="/cart">
@@ -438,7 +253,7 @@ const Navbar = ({ openAuth, setOpenAuth, currentUser }) => {
 
           {currentUser ? (
             <>
-              <Navlink to="/favorite">
+              <Navlink to="/favourite">
                 <FavoriteBorder sx={{ color: "inherit", fontSize: "28px" }} />
               </Navlink>
               <Navlink to="/cart">
@@ -455,7 +270,7 @@ const Navbar = ({ openAuth, setOpenAuth, currentUser }) => {
               >
                 {currentUser?.name[0]}
               </Avatar>
-              {/* <TextButton onClick={() => dispatch(logout())}>Logout</TextButton> */}
+              <TextButton onClick={() => dispatch(logout())}>Logout</TextButton>
             </>
           ) : (
             <Button

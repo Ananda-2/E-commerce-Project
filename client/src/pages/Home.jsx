@@ -1,11 +1,35 @@
-import React from 'react'
+import {React,useEffect,useState} from 'react'
 import CarouselCustomArrows from '../components/HomeCrousal'
 import {category} from '../utils/data'
 import CatergoryCard from '../components/cards/CatergoryCard'
 import IndivisualProductCard from '../components/cards/IndivisualProductCard'
+import {getAllProducts} from './../api/index.js'
 
 
 const Home = () => {
+  const [products , setProducts] = useState([]) ;
+  const [loading,setLoading] = useState(false) ;
+
+  const getProducts = async () => {
+    setLoading(true) ;
+    await getAllProducts().then((res) => {
+      setProducts(res.data);
+      setLoading(false) ;
+
+      
+    }).catch((err) =>{
+      console.error(err) ;
+    })
+  }
+  // console.log(products) ;
+
+  // will call getProduct function once after page loaded
+
+  useEffect(()=>{
+    getProducts() ;
+  },[]);
+
+
   return (
     <div>
       <CarouselCustomArrows/>
@@ -18,12 +42,11 @@ const Home = () => {
       </div>
       <div className = 'flex w-full items-center text-center font-bold text-2xl mt-10 justify-center text-zinc-500 '>BestSeller</div>
       <div className='flex flex-wrap gap-4 mt-8 items-center justify-center'>
-        <IndivisualProductCard/>
-        <IndivisualProductCard/>
-        <IndivisualProductCard/>
-        <IndivisualProductCard/>
-        <IndivisualProductCard/>
-        <IndivisualProductCard/>
+
+        {products.map((p) => (
+          <IndivisualProductCard product = {p}/>
+        ))}
+
       </div>
     </div>
   )

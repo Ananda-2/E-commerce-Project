@@ -48,6 +48,9 @@ export const UserSignIn = async (req,res,next) => {
         const { email , password } = req.body ;
         const alreadyExistUser = await User.findOne({email}).exec() ;
 
+        console.log(req.body) ;
+        
+
         if(!alreadyExistUser){
             // console.log("User Already Exist");
             return next("user does not exist") ;
@@ -77,6 +80,8 @@ try {
     const { productId } = req.body;
     const userJWT = req.user;
     const user = await User.findById(userJWT.id);
+    console.log(productId);
+    console.log("hello from fav func ");
 
     if (!user.favourites.includes(productId)) {
     user.favourites.push(productId);
@@ -97,7 +102,10 @@ try {
     const userJWT = req.user;
     const user = await User.findById(userJWT.id);
 
-    user.favourites = user.favourites.filter((fav) => !fav.equals(productId));
+    // user.favourites = user.favourites.filter((fav) => !fav.equals(productId));
+
+    user.favourites.remove(productId) ;
+
     await user.save();
     return res
     .status(200)
@@ -200,6 +208,8 @@ export const getAllCartItems = async (req,res,next) => {
 
 export const placeOrder = async (req, res, next) => {
     try {
+
+        console.log("hii from backend place order")
       const { products, address, totalAmount } = req.body;
       const userJWT = req.user;
       const user = await User.findById(userJWT.id);
@@ -211,8 +221,7 @@ export const placeOrder = async (req, res, next) => {
       });
       await order.save();
   
-      user.cart.save();
-  
+      user.save();
       user.cart = [];
       await user.save();
   

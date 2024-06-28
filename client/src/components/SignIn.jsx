@@ -1,6 +1,11 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import TextInput from "./TextInput";
+import Button from "./Button";
+import { UserSignIn } from "../api";
+import { useDispatch } from "react-redux";
+import { loginSuccessfull } from "../redux/reducers/userSlice";
+import {opensnackBar} from "./../redux/reducers/snackBarSlice"
 
 const Container = styled.div`
   width: 100%;
@@ -33,7 +38,7 @@ const TextButton = styled.div`
 `;
 
 const SignIn = () => {
-  //   const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const [buttonLoading, setButtonLoading] = useState(false);
   const [buttonDisabled, setButtonDisabled] = useState(false);
   const [email, setEmail] = useState("");
@@ -46,10 +51,53 @@ const SignIn = () => {
     }
     return true;
   };
+
+  const handelSignIn = async () => {
+    setButtonLoading(true);
+    setButtonDisabled(true);
+    if (validateInputs()) {
+      await UserSignIn({ email, password })
+        .then((res) => {
+          dispatch(loginSuccessfull(res.data));
+          dispatch(
+            opensnackBar({
+              message: "Login Successful",
+              severity: "success",
+            })
+          );
+          // window.location.replace("/") ;
+        })
+        .catch((err) => {
+          if (err.response) {
+            setButtonLoading(false);
+            setButtonDisabled(false);
+            alert(err.response.data.message);
+            dispatch(
+              opensnackBar({
+                message: err.response.data.message,
+                severity: "error",
+              })
+            );
+          } else {
+            setButtonLoading(false);
+            setButtonDisabled(false);
+            dispatch(
+              opensnackBar({
+                message: err.message,
+                severity: "error",
+              })
+            );
+          }
+        });
+    }
+    setButtonDisabled(false);
+    setButtonLoading(false);
+  };
+
   return (
     <Container>
       <div>
-        <Title>Login To Continue...</Title>
+        <Title>Welcome to Krist 👋</Title>
         <Span>Please login with your details here</Span>
       </div>
       <div style={{ display: "flex", gap: "20px", flexDirection: "column" }}>
@@ -64,13 +112,17 @@ const SignIn = () => {
           placeholder="Enter your password"
           password
           value={password}
-          //   handelChange={(e) => setPassword(e.target.value)}
+          handelChange={(e) => setPassword(e.target.value)}
         />
 
-        <TextButton>Forgot Password?</TextButton>
-        <button className="bg-blue-500 py-3 text-white rounded-md hover:bg-blue-300">
-          signIn
-        </button>
+        {/* <TextButton>Forgot Password?</TextButton> */}
+
+      <button className="bg-blue-500 py-3 text-white rounded-md hover:bg-blue-300"
+       onClick={handelSignIn}
+       isLoading={buttonLoading}
+       isDisabled={buttonDisabled}
+        >signin</button>
+        
       </div>
     </Container>
   );
