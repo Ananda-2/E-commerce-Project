@@ -25,8 +25,8 @@ function Orders () {
         await getAllOrders(token).then((res)=>{
             setOrders(res.data) ;
 
-            console.log(res.data[0].total_amount["$numberDecimal"]
-            );
+            // console.log(res.data[0].total_amount["$numberDecimal"]
+            // );
             
             // res.data.map((order) =>(
             //     order.products?.map((p)=>(
@@ -46,6 +46,10 @@ function Orders () {
         <div className=" min-h-screen mb-10 ">
             <div className="my-10 text-center font-bold text-2xl">Past Orders</div>
 
+            { orders?.length ===0 ? <div className='my-10 text-center' >No Order Yet</div> 
+            
+            : <>
+
             { orders?.map((order) => (
                 <>
                 <div className="container mx-auto max-w-[90%] mt-10 rounded-md ">
@@ -61,13 +65,13 @@ function Orders () {
                         </thead>
                         <tbody className="text-gray-600 text-sm font-light">
                             {order?.products?.map((item, index) => (
-                                 <tr key={item.product.id} className="border-b border-gray-200 hover:bg-gray-100">
+                                 <tr key={item?.product.id} className="border-b border-gray-200 hover:bg-gray-100">
                                  <td className="py-3 px-6 text-left">
                                        <div className="font-bold cursor-pointer hover:text-blue-700 " onClick={()=> window.location.replace(`/product/${item.product}`)}>{item.product}</div>
                                  </td>
-                                 <td className="py-3 px-6 text-left">${item.quantity}</td>
+                                 <td className="py-3 px-6 text-left">${item?.quantity}</td>
                                  
-                                 <td className="pt-3 px-6 text-left">{order.createdAt}</td>
+                                 <td className="pt-3 px-6 text-left">{order?.createdAt}</td>
                                </tr>
                             ))}
                         </tbody>
@@ -82,6 +86,7 @@ function Orders () {
                 </>
             ))}
 
+</>}
 
         </div>
     )

@@ -1,27 +1,13 @@
 import React, { useState } from "react";
-import styled from "styled-components";
 import TextInput from "./TextInput";
-
-const Container = styled.div`
-  width: 100%;
-  max-width: 500px;
-  display: flex;
-  flex-direction: column;
-  gap: 36px;
-  background:'white';
-`;
-const Title = styled.div`
-  font-size: 30px;
-  font-weight: 800;
-  color: ${({ theme }) => theme.primary};
-`;
-const Span = styled.div`
-  font-size: 16px;
-  font-weight: 400;
-  color: ${({ theme }) => theme.text_secondary + 90};
-`;
+import Button from "./Button";
+import { UserSignUp } from "../api";
+import { useDispatch } from "react-redux";
+import { loginSuccessfull } from "../redux/reducers/userSlice";
+import { opensnackBar } from "../redux/reducers/snackBarSlice.js";
 
 const SignUp = ({ setOpenAuth }) => {
+  const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
   const [buttonDisabled, setButtonDisabled] = useState(false);
   const [name, setName] = useState("");
@@ -36,19 +22,59 @@ const SignUp = ({ setOpenAuth }) => {
     return true;
   };
 
-//   const handleSignUp = async () => {
-//   };
+  const handleSignUp = async () => {
+    setLoading(true);
+    setButtonDisabled(true);
+    if (validateInputs()) {
+      try {
+        const res = await UserSignUp({ name, email, password });
+        dispatch(loginSuccessfull(res.data));
+        window.location.replace("/signin") ;
+        dispatch(
+          opensnackBar({
+            message: "err.response.data.message",
+            severity: "error",
+          })
+        );
+        setOpenAuth(false);
+      } catch (err) {
+        if (err.response) {
+          alert(err.response.data.message);
+          dispatch(
+            opensnackBar({
+              message: err.response.data.message,
+              severity: "error",
+            })
+          );
+        } else {
+          alert(err.message);
+          dispatch(
+            opensnackBar({
+              message: err.message,
+              severity: "error",
+            })
+          );
+        }
+      } finally {
+        setLoading(false);
+        setButtonDisabled(false);
+      }
+    } else {
+      setLoading(false);
+      setButtonDisabled(false);
+    }
+  };
 
   return (
-    <Container>
+    <div className="w-full max-w-2xl mx-auto p-6 space-y-6">
       <div>
-        <Title>Create A New Account</Title>
-        <Span>Please enter details to create an account</Span>
+        <h1 className="text-3xl font-bold text-primary">Create New Account 👋</h1>
+        <p className="text-lg text-text_secondary">Please enter details to create a new account</p>
       </div>
-      <div style={{ display: "flex", gap: "20px", flexDirection: "column" }}>
+      <div className="space-y-4">
         <TextInput
-          label="Name"
-          placeholder="Enter your name"
+          label="Full Name"
+          placeholder="Enter your full name"
           value={name}
           handelChange={(e) => setName(e.target.value)}
         />
@@ -60,19 +86,17 @@ const SignUp = ({ setOpenAuth }) => {
         />
         <TextInput
           label="Password"
-          placeholder="Enter password"
+          placeholder="Enter your password"
           password
           value={password}
-        //   handelChange={(e) => setPassword(e.target.value)}
+          handelChange={(e) => setPassword(e.target.value)}
         />
         <button className="bg-blue-500 py-3 text-white rounded-md hover:bg-blue-300"
-        //   onClick={handleSignUp}
-          isLoading={loading}
+          onClick={handleSignUp}
           isDisabled={buttonDisabled}
-        >signup</button>
-        
+            >signUp</button>
       </div>
-    </Container>
+    </div>
   );
 };
 

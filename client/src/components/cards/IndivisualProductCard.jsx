@@ -102,7 +102,7 @@ const IndivisualProductCard = ({product}) => {
       <div className="relative rounded-md overflow-hidden group ">
         <img
           src={product?.img}
-          className="w-full h-80 rounded-md object-contain transition-opacity duration-300 ease-out hover:opacity-50"
+          className="w-full h-80 rounded-md object-cover transition-opacity duration-300 ease-out hover:opacity-50"
           alt="Product"
         />
 
@@ -133,8 +133,8 @@ const IndivisualProductCard = ({product}) => {
           {product?.desc}
         </div>
         <div className="flex items-center gap-2">
-          <div className="text-lg font-medium">${product?.price.org}</div>
-          <div className="text-secondary-60 line-through">${product?.price.mrp}</div>
+          <div className="text-lg font-medium">₹{product?.price.org}</div>
+          <div className="text-secondary-60 line-through">₹{product?.price.mrp}</div>
           <div className="text-green-500 text-xs font-medium">{product?.price.off}% Off</div>
         </div>
       </div>

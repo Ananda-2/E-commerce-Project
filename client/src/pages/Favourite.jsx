@@ -34,7 +34,7 @@ const Favourite = () => {
 
   return (
     <div>
-      <div className='text-2xl justify-center font-bold text-gray-700 mt-10 text-center '>Favourite Products</div>      
+      <div className='text-2xl justify-center font-bold text-gray-700 mt-10 text-center min-h-screen'>Favourite Products</div>      
       <div className='flex flex-wrap p-5 justify-around rounded-md'>
 
         {products?.map((product) =>(

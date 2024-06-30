@@ -134,12 +134,12 @@ export default function ProductDetails(){
                 </div>
 
                 {
-                    sizes.map((size)=>(
+                    product?.sizes.map((size)=>(
                         <span className={`border border-blue-400  rounded-full py-1 mr-3 cursor-pointer px-4 items-center justify-center 
                             ${selected === size ? "bg-slate-400 text-white" : ""}`}
                             onClick = {() => {setSelected(size)}} 
                             >
-                                {size[0]}
+                                {size}
                         </span>
                     ))
                 }

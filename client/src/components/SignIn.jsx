@@ -63,9 +63,10 @@ const SignIn = () => {
             opensnackBar({
               message: "Login Successful",
               severity: "success",
-            })
+            }),
           );
-          // window.location.replace("/") ;
+          // sleep(1) ;
+          // window.location.replace("/") 
         })
         .catch((err) => {
           if (err.response) {
