@@ -29,7 +29,7 @@ const SignUp = ({ setOpenAuth }) => {
       try {
         const res = await UserSignUp({ name, email, password });
         dispatch(loginSuccessfull(res.data));
-        window.location.replace("/signin") ;
+        window.location.replace("/") ;
         dispatch(
           opensnackBar({
             message: "err.response.data.message",

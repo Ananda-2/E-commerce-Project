@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import TextInput from "./TextInput";
 import Button from "./Button";
@@ -45,6 +45,7 @@ const SignIn = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate() ;
+  const [userDefined , setUserDefined]  = useState() ;
 
   const validateInputs = () => {
     if (!email || !password) {
@@ -69,6 +70,8 @@ const SignIn = () => {
             severity: "success",
           })
         );
+        console.log(res.data);
+        setUserDefined(1) ;
         navigate("/");
       } catch (err) {
         setButtonLoading(false);
@@ -87,6 +90,13 @@ const SignIn = () => {
     setButtonDisabled(false);
     setButtonLoading(false);
   };
+
+  useEffect(()=>{
+    // console.log("---------------------" , x)
+    if(userDefined===1){
+      window.location.replace("/")
+    }
+  })
 
   return (
     <Container>
