@@ -2,8 +2,8 @@ import axios from 'axios'
 
 // create an api instance 
 const API = axios.create({
-    // baseURL:"http://localhost:8000/api/",
-    baseURL:"https://e-commerce-project-one-vert.vercel.app/",
+    baseURL:"http://localhost:8000/api/",
+    // baseURL:"https://e-commerce-project-one-vert.vercel.app/",
 });
 
 
