@@ -4,10 +4,13 @@ import styled from "styled-components";
 import { category, filter } from "../utils/data";
 import { CircularProgress, Slider } from "@mui/material";
 import {getAllProducts} from "./../api/index"
+import Pagination from "../components/Pagination";
 
 const ShopListing = () => {
   const [products , setProducts] = useState() ;
-  const [priceRange, setPriceRange] = useState([0, 100000]);
+  const [currentPage , setCurrentPage] = useState(1) ;
+  const [postPerPage , setPostPerPage] = useState(8) ;
+  const [priceRange, setPriceRange] = useState([0, 50000]);
   const [selectedSizes, setSelectedSizes] = useState(["S", "M", "L", "XL" , "XXL" , "64GB","128GB","256GB", "32GB" , "11 inch", "14 inch" , "13 inch" , "15 inch"]); // Default selected sizes
   const [selectedCategories, setSelectedCategories] = useState([
     "Men",
@@ -39,6 +42,19 @@ const ShopListing = () => {
     getFilteredProductsData();
   }, [priceRange, selectedSizes, selectedCategories]);
 
+  // pagination --------------------------------------------------------------------------
+
+  const lastPostIndex = currentPage* postPerPage ; 
+  const firstPostIndex = lastPostIndex - postPerPage ;
+
+  const ProductToShow = products?.slice(firstPostIndex,lastPostIndex) ;
+
+    //   let page = [] ;
+
+    // for(let i=1 ; i<=Math.ceil(totalProduct/productPerPage) ; i++){
+    //     page.push(i) ;
+    // }
+
 
 
   return (
@@ -57,11 +73,11 @@ const ShopListing = () => {
                       aria-label="Price"
                       defaultValue={priceRange}
                       min={0}
-                      max={100000}
+                      max={50000}
                       valueLabelDisplay="auto"
                       marks={[
                         { value: 0, label: "₹0" },
-                        { value: 100000, label: "₹100000" },
+                        { value: 50000, label: "₹50000" },
                       ]}
                       onChange={(e, newValue) => setPriceRange(newValue)}
                       className="max-w-[50%] inline-block"
@@ -119,9 +135,20 @@ const ShopListing = () => {
     
         {/* Product details ------------------------------------------------ */}
         <div className='flex flex-wrap gap-4 mt-8 items-center justify-center'>
-          {products?.map((p) => (
+          {ProductToShow?.map((p) => (
             <IndivisualProductCard key={p.id} product={p} />
           ))}
+
+          <div className=" block w-full mx-auto text-center ">
+
+
+          <Pagination
+            totalProduct={products}
+            productPerPage={postPerPage}
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+            />
+            </div>
         </div>
       </div>
     );

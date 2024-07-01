@@ -24,7 +24,7 @@ const Favourite = () => {
     await getFavouritesDetails(token).then((res) => {
       setProducts(res.data);
       setLoading(false);
-      console.log(products);
+      console.log(res.data);
     });
   };
 
@@ -33,8 +33,8 @@ const Favourite = () => {
   },[])
 
   return (
-    <div>
-      <div className='text-2xl justify-center font-bold text-gray-700 mt-10 text-center min-h-screen'>Favourite Products</div>      
+    <div className="min-h-screen">
+      <div className='text-2xl justify-center font-bold text-gray-700 mt-10 text-center'>Favourite Products</div>      
       <div className='flex flex-wrap p-5 justify-around rounded-md'>
 
         {products?.map((product) =>(

@@ -102,7 +102,7 @@ const IndivisualProductCard = ({product}) => {
       <div className="relative rounded-md overflow-hidden group ">
         <img
           src={product?.img}
-          className="w-full h-80 rounded-md object-cover transition-opacity duration-300 ease-out hover:opacity-50"
+          className="w-full h-80 rounded-md object-cover hover:scale-125 transition duration-500 ease-out hover:opacity-50"
           alt="Product"
         />
 

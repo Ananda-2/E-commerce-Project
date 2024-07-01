@@ -231,7 +231,7 @@ const Cart = () => {
                             </div>
                           </div>
                         </td>
-                        <td className="py-3 px-6 text-left">${item.product.price?.org}</td>
+                        <td className="py-3 px-6 text-left">₹{item.product.price?.org}</td>
                         <td className="py-3 px-6 text-left">
                           <div className="flex items-center">
                             <button
@@ -249,7 +249,7 @@ const Cart = () => {
                             </button>
                           </div>
                         </td>
-                        <td className="py-3 px-6 text-left">${calculateSubtotal(item.product.price?.org, item.quantity)}</td>
+                        <td className="py-3 px-6 text-left">₹{calculateSubtotal(item.product.price?.org, item.quantity)}</td>
                       </tr>
                     ))}
                   </tbody>

@@ -52,7 +52,8 @@ const SignIn = () => {
     return true;
   };
 
-  const handelSignIn = async () => {
+  const handelSignIn = async (e) => {
+    e.preventDefault() ;
     setButtonLoading(true);
     setButtonDisabled(true);
     if (validateInputs()) {
