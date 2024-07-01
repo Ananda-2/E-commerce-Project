@@ -6,6 +6,7 @@ import { UserSignIn } from "../api";
 import { useDispatch } from "react-redux";
 import { loginSuccessfull } from "../redux/reducers/userSlice";
 import {opensnackBar} from "./../redux/reducers/snackBarSlice"
+import { Navigate, useNavigate } from "react-router-dom";
 
 const Container = styled.div`
   width: 100%;
@@ -43,6 +44,7 @@ const SignIn = () => {
   const [buttonDisabled, setButtonDisabled] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate() ;
 
   const validateInputs = () => {
     if (!email || !password) {
@@ -53,45 +55,35 @@ const SignIn = () => {
   };
 
   const handelSignIn = async (e) => {
-    e.preventDefault() ;
+    e.preventDefault();
     setButtonLoading(true);
     setButtonDisabled(true);
+  
     if (validateInputs()) {
-      await UserSignIn({ email, password })
-        .then((res) => {
-          dispatch(loginSuccessfull(res.data));
-          dispatch(
-            opensnackBar({
-              message: "Login Successful",
-              severity: "success",
-            }),
-          );
-          // sleep(1) ;
-          // window.location.replace("/") 
-        })
-        .catch((err) => {
-          if (err.response) {
-            setButtonLoading(false);
-            setButtonDisabled(false);
-            alert(err.response.data.message);
-            dispatch(
-              opensnackBar({
-                message: err.response.data.message,
-                severity: "error",
-              })
-            );
-          } else {
-            setButtonLoading(false);
-            setButtonDisabled(false);
-            dispatch(
-              opensnackBar({
-                message: err.message,
-                severity: "error",
-              })
-            );
-          }
-        });
+      try {
+        const res = await UserSignIn({ email, password });
+        dispatch(loginSuccessfull(res.data));
+        dispatch(
+          opensnackBar({
+            message: "Login Successful",
+            severity: "success",
+          })
+        );
+        navigate("/");
+      } catch (err) {
+        setButtonLoading(false);
+        setButtonDisabled(false);
+        
+        const errorMessage = err.response?.data?.message || err.message;
+        dispatch(
+          opensnackBar({
+            message: errorMessage,
+            severity: "error",
+          })
+        );
+      }
     }
+  
     setButtonDisabled(false);
     setButtonLoading(false);
   };
@@ -99,7 +91,7 @@ const SignIn = () => {
   return (
     <Container>
       <div>
-        <Title>Welcome to Krist 👋</Title>
+        <Title>Login Now ... </Title>
         <Span>Please login with your details here</Span>
       </div>
       <div style={{ display: "flex", gap: "20px", flexDirection: "column" }}>

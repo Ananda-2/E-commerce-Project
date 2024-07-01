@@ -124,7 +124,7 @@ export default function ProductDetails() {
         <img
           src={product?.img}
           alt=""
-          className="m-auto mt-10 cover items-center justify-center md:mb-16 rounded-md w-full md:w-[300px] h-auto md:h-[300px] object-cover"
+          className="m-auto mt-10 cover cursor-pointer items-center justify-center md:mb-16 rounded-md w-full md:w-[300px] h-auto md:h-[300px] object-cover"
         />
       </div>
       <div className="items-center justify-center text-left px-10  md:ml-20 ">

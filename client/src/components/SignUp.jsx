@@ -68,7 +68,7 @@ const SignUp = ({ setOpenAuth }) => {
   return (
     <div className="w-full max-w-2xl mx-auto p-6 space-y-6">
       <div>
-        <h1 className="text-3xl font-bold text-primary">Create New Account 👋</h1>
+        <h1 className="text-3xl font-bold text-primary">Create New Account </h1>
         <p className="text-lg text-text_secondary">Please enter details to create a new account</p>
       </div>
       <div className="space-y-4">
