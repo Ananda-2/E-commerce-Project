@@ -224,7 +224,7 @@ export default function ProductDetails() {
     </div>
         
         <h1 className="text-2xl text-cyan-600  ml-20 font-bold mt-4 ">Similar Products</h1>
-        <div className="flex flex-wrap gap-2 justify-center my-10 ">
+        <div className="flex flex-wrap gap-10 justify-center my-10 ">
         {similarProducts?.slice(0, 4).map((p, index) => {
           return p._id !== product._id &&  <IndivisualProductCard key={index} product={p} />
         })}

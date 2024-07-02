@@ -43,13 +43,13 @@ const Home = () => {
       <div className="flex w-full items-center text-center font-bold text-2xl mt-10 justify-center text-zinc-500 ">
         BestSeller
       </div>
-      <div className="flex flex-wrap gap-4 mt-8 items-center justify-center">
+      <div className="flex flex-wrap gap-10 mt-8 items-center justify-center">
         {products.slice(0, 4).map((p, index) => (
           <IndivisualProductCard key={index} product={p} />
         ))}
       </div>
 
-      <Link to="/shop">
+      <Link to="/category">
         <div className="items-center justify-center my-10 text-center mx-auto ">
           <button class="relative group overflow-hidden justify-center mx-auto px-6 h-12 rounded-full flex space-x-2 items-center bg-gradient-to-r from-pink-500 to-purple-500 hover:to-purple-600">
             <span class="relative text-sm text-white">See All Categories</span>

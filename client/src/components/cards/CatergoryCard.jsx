@@ -1,96 +1,43 @@
-// CatergoryCard
-
 import React from "react";
-import { useNavigate } from "react-router-dom";
-import styled from "styled-components";
+import "./category.css";
+import { Link } from "react-router-dom";
 
-const Card = styled.div`
-  width: 250px;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  transition: all 0.3s ease-out;
-  cursor: pointer;
-  @media (max-width: 600px) {
-    width: 170px;
-  }
-`;
-const Image = styled.img`
-  width: 100%;
-  height: 320px;
-  border-radius: 6px;
-  object-fit: cover;
-  transition: all 0.3s ease-out;
-  @media (max-width: 600px) {
-    height: 240px;
-  }
-`;
-const Top = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  border-radius: 6px;
-  transition: all 0.3s ease-out;
-  &:hover {
-    background-color: ${({ theme }) => theme.primary};
-  }
-  &:hover ${Image} {
-    opacity: 0.5;
-  }
-`;
-const Menu = styled.div`
-  width: 90%;
-  position: absolute;
-  z-index: 10;
-  color: ${({ theme }) => theme.text_primary};
-  bottom: 20px;
-  left: 50;
-  right: 50;
-  display: flex;
-  gap: 12px;
-`;
-const Button = styled.div`
-  width: 100%;
-  color: ${({ theme }) => theme.primary};
-  padding: 12px 20px;
-  background: white;
-  border-radius: 12px;
-  text-align: center;
-  font-weight: 500;
-  @media (max-width: 600px) {
-    padding: 6px 14px;
-  }
-`;
-const Sale = styled.div`
-  position: absolute;
-  z-index: 10;
-  color: ${({ theme }) => theme.text_primary};
-  top: 10px;
-  right: 10px;
-  font-size: 12px;
-  font-weight: 600;
-  color: white;
-  background: green;
-  padding: 3px 6px;
-  border-radius: 4px;
-  @media (max-width: 600px) {
-    font-size: 10px;
-  }
-`;
-
-const CatergoryCard = ({ category }) => {
-  const navigate = useNavigate();
+const CatergoryCard = ({ props }) => {
   return (
-    <Card onClick={() => navigate(`/shop?category=${category.name}`)}>
-      <Top>
-        <Image src={category.img} />
-        <Menu>
-          <Button>{category.name}</Button>
-        </Menu>
-        <Sale>{category.off}</Sale>
-      </Top>
-    </Card>
+    <div class="flex mt-16 mb-5 items-center justify-center bg-transparent pb-9" onClick={()=>window.location.replace(`/category/${props.name}`)}>
+      <div class="group h-[200px] w-[300px] ">
+        <div
+          class="group relative rounded-xl mx-6 md:mx-0 cursor-pointer items-center justify-center overflow-hidden shadow-md "
+          style={{ boxShadow: "0 0 10px var(--color-secondary)" }}
+        >
+          <div class="h-96 w-72 md:w-full md:h-80">
+            <img
+              class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-125 group-hover:blur-[1px]"
+              src={props.img}
+              alt=""
+            />
+          </div>
+          <div class="absolute inset-0 bg-gradient-to-b from-transparent via-transparent group-hover:from-black/70 group-hover:via-black/60 group-hover:to-black/70"></div>
+          <div class="absolute inset-0 flex translate-y-[60%] flex-col items-center justify-center px-9 text-center transition-all duration-500 group-hover:translate-y-0">
+            <h1 class="text-2xl font-bold mb-3 text-white font-poppins">
+              {props.name}
+            </h1>
+            <p class="text-md max-h-12 line-clamp-3 font-poppins overflow-ellipsis overflow-hidden text-white">
+              {props.desc}
+            </p>
+            <div className="team-home-div-textArea mt-10">
+              <Link
+                to={`/category/${props.name}`}
+                className="team-home-all before:top-4 before:h-8"
+              >
+                <span className="text-white">See More</span>
+                <p id="teamMore" className="text-white">{" >>"}</p>
+              </Link>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 };
 

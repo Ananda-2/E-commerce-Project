@@ -49,6 +49,7 @@ const NavLogo = styled.div`
 `;
 const Logo = styled.img`
   height: 34px;
+  margin-right : 10px ;
 `;
 const NavItems = styled.ul`
   width: 100%;
@@ -71,11 +72,10 @@ const Navlink = styled(NavLink)`
   transition: all 1s slide-in;
   text-decoration: none;
   &:hover {
-    color: ${({ theme }) => theme.primary};
+    color: Purple;
   }
   &.active {
-    color: ${({ theme }) => theme.primary};
-    border-bottom: 1.8px solid ${({ theme }) => theme.primary};
+    color:Purple;
   }
 `;
 
@@ -159,11 +159,12 @@ const Navbar = ({ openAuth, setOpenAuth, currentUser }) => {
 
         <NavLogo>
           <Logo src={LogoImg} />
+          <NavLink to = "/">ShopSphere</NavLink>
         </NavLogo>
 
         <NavItems>
           <Navlink to="/">Home</Navlink>
-          <Navlink to="/Shop">Shop</Navlink>
+          <Navlink to="/Category">Category</Navlink>
           {/* <Navlink to="/New_Arrivals">New</Navlink> */}
           <Navlink to="/Orders">Orders</Navlink>
           <Navlink to="/Contact">Contact</Navlink>
@@ -174,8 +175,8 @@ const Navbar = ({ openAuth, setOpenAuth, currentUser }) => {
             <Navlink to="/" onClick={() => setIsOpen(!isOpen)}>
               Home
             </Navlink>
-            <Navlink onClick={() => setIsOpen(!isOpen)} to="/Shop">
-              Shop
+            <Navlink onClick={() => setIsOpen(!isOpen)} to="/Category">
+              Category
             </Navlink>
             {/* <Navlink onClick={() => setIsOpen(!isOpen)} to="/New_Arrivals">
               New Arivals
@@ -186,6 +187,12 @@ const Navbar = ({ openAuth, setOpenAuth, currentUser }) => {
             <Navlink onClick={() => setIsOpen(!isOpen)} to="/Contact">
               Contact
             </Navlink>
+
+            {/* <Navlink to="/search">
+            <SearchRounded sx={{ color: "inherit", fontSize: "30px" }} />
+          </Navlink> */}
+
+
             {currentUser ? (
               <Button text="Logout" small onClick={() => dispatch(logout())} />
             ) : (
@@ -213,9 +220,9 @@ const Navbar = ({ openAuth, setOpenAuth, currentUser }) => {
         )}
 
         <Mobileicons>
-          <Navlink to="/search">
+          {/* <Navlink to="/search">
             <SearchRounded sx={{ color: "inherit", fontSize: "30px" }} />
-          </Navlink>
+          </Navlink> */}
 
           {currentUser ? (
             <>
@@ -247,9 +254,9 @@ const Navbar = ({ openAuth, setOpenAuth, currentUser }) => {
         </Mobileicons>
 
         <ButtonContainer>
-          <Navlink to="/search">
+        {/* <Navlink to="/category">
             <SearchRounded sx={{ color: "inherit", fontSize: "30px" }} />
-          </Navlink>
+          </Navlink> */}
 
           {currentUser ? (
             <>

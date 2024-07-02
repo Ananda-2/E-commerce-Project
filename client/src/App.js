@@ -13,6 +13,8 @@ import { useState } from "react";
 import Authentication from "./pages/Authentication";
 import ToastMessage from "./components/TosteMessage";
 import Orders from "./pages/Orders";
+import SearchPage from "./pages/Search";
+import Category from "./pages/Category";
 
 
 const Container = styled.div`
@@ -38,9 +40,11 @@ function App() {
           <Navbar openAuth={openAuth} setOpenAuth={setOpenAuth} currentUser={currentUser} />
           <Routes>
             <Route path="/" exact element = {<Home/>}/> 
-            <Route path="/shop" exact element = {<ShopListing/>}/> 
+            <Route path="/Category" exact element = {<Category/>}/> 
+            <Route path="/Category/:id" exact element = {<ShopListing/>}/> 
             <Route path="/favourite" exact element = {<Favourite/>}/> 
             <Route path="/cart" exact element = {<Cart/>}/> 
+            {/* <Route path="/search" exact element = {<SearchPage/>}/>  */}
             <Route path="/Orders" exact element = {<Orders/>}/> 
             <Route path="/product/:id" exact element = {<ProductDetails/>}/> 
           </Routes>

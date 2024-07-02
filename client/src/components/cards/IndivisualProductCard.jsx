@@ -98,11 +98,11 @@ const IndivisualProductCard = ({product}) => {
   },[favorite]) ;
 
   return (
-    <div className="w-72 flex flex-col gap-2 transition-all duration-300 ease-out cursor-pointer  ">
+    <div className="w-64 flex flex-col gap-2 transition-all duration-300 ease-out cursor-pointer  ">
       <div className="relative rounded-md overflow-hidden group ">
         <img
           src={product?.img}
-          className="w-full h-80 rounded-md object-cover hover:scale-125 transition duration-500 ease-out hover:opacity-50"
+          className="w-full h-72 rounded-md object-cover hover:scale-125 transition duration-500 ease-out hover:opacity-50"
           onClick={() => window.location.replace(`/product/${product._id}`)}
           alt="Product"
         />
@@ -135,7 +135,7 @@ const IndivisualProductCard = ({product}) => {
         </div>
         <div className="flex items-center gap-2">
           <div className="text-lg font-medium">₹{product?.price.org}</div>
-          <div className="text-secondary-60 line-through">₹{product?.price.mrp}</div>
+          <div className="text-secondary-60 line-through text-gray-400">₹{product?.price.mrp}</div>
           <div className="text-green-500 text-xs font-medium">{product?.price.off}% Off</div>
         </div>
       </div>
