@@ -2,7 +2,8 @@ import { React, useEffect, useState } from "react";
 import { Rating } from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { getProductDetails } from "../api/index.js";
+import IndivisualProductCard from "../components/cards/IndivisualProductCard.jsx";
+import { getProductDetails , getAllProducts } from "../api/index.js";
 import {
   addToFavourites,
   removeFromFavorites,
@@ -21,6 +22,8 @@ export default function ProductDetails() {
   const [product, setProduct] = useState();
   const [favorite, setFavorite] = useState(false);
   const [favoriteLoading, setFavoriteLoading] = useState(false);
+  const [category , setCategory] = useState() ;
+  const [similarProducts , setSimilarProducts] = useState() ;
 
   const addFavorite = async () => {
     setFavoriteLoading(true);
@@ -104,31 +107,65 @@ export default function ProductDetails() {
       });
   };
 
-  useEffect(() => {
-    checkFavourite();
-  }, [favorite]);
 
-  const getProduct = async () => {
-    await getProductDetails(id).then((res) => {
-      setProduct(res.data);
+  const getSimilarProductsData = async () => {
+    // setLoading(true);
+    // Call the API function for filtered products
+    await getAllProducts(
+      `categories=${category}`
+    ).then((res) => {
+      // let arr = [] ; 
+      // res.data.map((acc,item)=>{
+      //   if(item._id != product._id){
+      //     arr.push(item) ;
+      //   }
+      //   // returnc ;
+      // })
+      setSimilarProducts(res.data);
+      // similarProducts = similarProducts.filter(item => item._id !== product._id);
+      
+      // setLoading(false);
+      console.log(res.data);
+      console.log(category);
     });
   };
 
   useEffect(() => {
+    checkFavourite();
+  }, [favorite]);
+
+  const getProduct = async (e) => {
+    // e.preventDefault();
+    await getProductDetails(id).then((res) => {
+      setProduct(res.data);
+      setCategory(res.data.category[0])
+      // getSimilarProductsData();
+    });
+  };
+  
+  useEffect(() => {
     getProduct();
+    
   }, []);
 
+  useEffect(() => {
+    getSimilarProductsData();
+  },[category]);
+
   return (
-    <div className=" flex flex-col md:flex-row min-h-screen m-auto ">
-      <div className="justify-center items-center m-auto text-center">
+    <div className="min-h-screen">
+
+    
+    <div className=" flex flex-col md:flex-row  m-auto justify-center  ">
+      <div className="justify-center items-center m-auto text-center max-w-[50%] ">
         <img
           src={product?.img}
           alt=""
-          className="m-auto mt-10 cover cursor-pointer items-center justify-center md:mb-16 rounded-md w-full md:w-[300px] h-auto md:h-[300px] object-cover"
+          className="mt-16 cover cursor-pointer items-center justify-center md:mb-16 rounded-md w-full md:w-[300px] h-auto md:h-[300px] object-cover"
         />
       </div>
-      <div className="items-center justify-center text-left px-10  md:ml-20 ">
-        <h1 className="md:mt-24 font-bold text-gray-700 text-2xl ">
+      <div className="items-center justify-center text-left md:pr-40  ">
+        <h1 className="md:mt-16 font-bold text-gray-700 text-2xl ">
           {product?.title}
         </h1>
         <h2 className="text-base my-5 text-gray-400">{product?.desc}</h2>
@@ -182,6 +219,18 @@ export default function ProductDetails() {
           <button></button>
         </div>
       </div>
+
+
+    </div>
+        
+        <h1 className="text-2xl text-cyan-600  ml-20 font-bold mt-4 ">Similar Products</h1>
+        <div className="flex flex-wrap gap-2 justify-center my-10 ">
+        {similarProducts?.slice(0, 4).map((p, index) => {
+          return p._id !== product._id &&  <IndivisualProductCard key={index} product={p} />
+        })}
+        
+        </div>
+
     </div>
   );
 }

@@ -91,7 +91,7 @@ const SignUp = ({ setOpenAuth }) => {
           value={password}
           handelChange={(e) => setPassword(e.target.value)}
         />
-        <button className="bg-blue-500 py-3 px-10 text-center text-white rounded-md hover:bg-blue-300"
+        <button className="bg-blue-500 py-3 px-10 w-full text-center text-white rounded-md hover:bg-blue-300"
           onClick={handleSignUp}
           isDisabled={buttonDisabled}
             >signUp</button>

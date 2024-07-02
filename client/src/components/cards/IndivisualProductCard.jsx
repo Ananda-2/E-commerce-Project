@@ -98,11 +98,12 @@ const IndivisualProductCard = ({product}) => {
   },[favorite]) ;
 
   return (
-    <div className="w-72 flex flex-col gap-2 transition-all duration-300 ease-out cursor-pointer  " onClick={() => window.location.replace(`/product/${product._id}`)}>
+    <div className="w-72 flex flex-col gap-2 transition-all duration-300 ease-out cursor-pointer  ">
       <div className="relative rounded-md overflow-hidden group ">
         <img
           src={product?.img}
           className="w-full h-80 rounded-md object-cover hover:scale-125 transition duration-500 ease-out hover:opacity-50"
+          onClick={() => window.location.replace(`/product/${product._id}`)}
           alt="Product"
         />
 
@@ -127,7 +128,7 @@ const IndivisualProductCard = ({product}) => {
           <Rating value={3.5} sx={{ fontSize: "14px" }} />
         </div>
       </div>
-      <div className="flex flex-col gap-1 p-2">
+      <div className="flex flex-col gap-1 p-2" onClick={() => window.location.replace(`/product/${product._id}`)}>
         <div className="text-lg font-semibold text-primary">{product?.title}</div>
         <div className="text-primary text-sm overflow-hidden whitespace-nowrap overflow-ellipsis">
           {product?.desc}
