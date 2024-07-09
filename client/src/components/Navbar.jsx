@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import LogoImg from "../utils/Images/Logo.jpg";
 import { NavLink } from "react-router-dom";
@@ -145,10 +145,43 @@ const TextButton = styled.div`
   }
 `;
 
-const Navbar = ({ openAuth, setOpenAuth, currentUser }) => {
+const Navbar = ({ openAuth, setOpenAuth, currentUser , digitalData }) => {
   const [isOpen, setIsOpen] = useState(false);
   const dispatch = useDispatch();
   // console.log(currentUser) ;
+
+
+function setDigitalData () {
+  try{
+    digitalData.page =  {
+        pageUrl : window.location.href ,
+        title : document.title
+    }
+    if(currentUser){
+      digitalData.user = {
+        userDetails : currentUser,
+        loggedIn : true ,
+      }
+    }else{
+      digitalData.user = {
+          userDetails : null ,
+          loggedIn : false ,
+      }
+    }
+
+    // console.log(digitalData);
+  }catch(e){
+    console.error(e) ;
+  }
+}
+
+useEffect(() => {
+  setDigitalData();
+},[])
+
+
+
+
   
   return (
     <Nav className=" bg-black ">

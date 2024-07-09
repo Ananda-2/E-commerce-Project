@@ -3,39 +3,18 @@ import {getAllOrders , getProductDetails} from './../api/index.js'
 
 const productMap = {} ;
 
-// const getProd = async (id) => {
-//     await getProductDetails(id).then((res)=>{
-//         productMap[id] = res.data ;
-//         // console.log(productMap[id]) ;
-//     }) ;
-// }
-
-// const getTitle  = async (id) =>{
-//     await getProductDetails(id).then((res)=>{
-//         return res.data ;
-        
-//     }) ;
-// }
-
 function Orders () {
-    const [orders,setOrders] = useState() ;
+    const [orders,setOrders] = useState([]) ;
 
     const getOrderDetails = async () => {
         const token = localStorage.getItem("krist-app-token");
-        await getAllOrders(token).then((res)=>{
-            setOrders(res.data) ;
-
-            // console.log(res.data[0].total_amount["$numberDecimal"]
-            // );
-            
-            // res.data.map((order) =>(
-            //     order.products?.map((p)=>(
-            //         getProd(p.product) 
-            //     ))
-            // ))
-
-        //    {productMap.size && console.log(productMap["667cfa6b193b44d559a24c16"]) ;}
-        })
+        // console.log(token);
+        if(token){
+            // console.log("token fro order" , token);
+            await getAllOrders(token).then((res)=>{
+                setOrders(res.data) ;
+            })
+        }
     }
 
     useEffect(()=>{

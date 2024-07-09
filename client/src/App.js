@@ -13,7 +13,6 @@ import { useState } from "react";
 import Authentication from "./pages/Authentication";
 import ToastMessage from "./components/TosteMessage";
 import Orders from "./pages/Orders";
-import SearchPage from "./pages/Search";
 import Category from "./pages/Category";
 
 
@@ -32,12 +31,17 @@ function App() {
   const [openAuth,setOpenAuth] = useState(false) ;
   const {currentUser} = useSelector((state) => state.user) ;
   const {open,message,severity} = useSelector((state) => state.user) ;
+  window.digitalData = {
+    "user" : {} ,
+    "page" : {} ,
+    "product" : {}
+  } ;
 
   return (
     <>
       <BrowserRouter>
         <Container>
-          <Navbar openAuth={openAuth} setOpenAuth={setOpenAuth} currentUser={currentUser} />
+          <Navbar openAuth={openAuth} setOpenAuth={setOpenAuth} currentUser={currentUser} digitalData = {window.digitalData} />
           <Routes>
             <Route path="/" exact element = {<Home/>}/> 
             <Route path="/Category" exact element = {<Category/>}/> 
@@ -46,7 +50,7 @@ function App() {
             <Route path="/cart" exact element = {<Cart/>}/> 
             {/* <Route path="/search" exact element = {<SearchPage/>}/>  */}
             <Route path="/Orders" exact element = {<Orders/>}/> 
-            <Route path="/product/:id" exact element = {<ProductDetails/>}/> 
+            <Route path="/product/:id" exact element = {<ProductDetails digitalData = {window.digitalData} />}/> 
           </Routes>
 
           {openAuth && ( <Authentication openAuth={openAuth} setOpenAuth={setOpenAuth} currentUser = {currentUser}/>)}

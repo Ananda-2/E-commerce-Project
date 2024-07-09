@@ -14,16 +14,16 @@ const IndivisualProductCard = ({product}) => {
 
   const addFavorite = async () => {
     setFavoriteLoading(true);
-    console.log(product._id);
+    // console.log(product._id);
     const token = localStorage.getItem("krist-app-token");
     await addToFavourites(token, { productId: product?._id  })
       .then((res) => {
         setFavorite(true);
         setFavoriteLoading(false);
-        console.log("added to fav")
+        // console.log("added to fav")
       })
       .catch((err) => {
-        console.log("not added")
+        // console.log("not added")
         setFavoriteLoading(false);
         dispatch(
           opensnackBar({
@@ -35,13 +35,13 @@ const IndivisualProductCard = ({product}) => {
   };
   const removeFavorite = async () => {
     setFavoriteLoading(true);
-    console.log(product._id);
+    // console.log(product._id);
     const token = localStorage.getItem("krist-app-token");
     await removeFromFavorites(token, { productId: product?._id })
       .then((res) => {
         setFavorite(false);
         setFavoriteLoading(false);
-        console.log("removed from fav")
+        // console.log("removed from fav")
       })
       .catch((err) => {
         setFavoriteLoading(false);
@@ -70,27 +70,31 @@ const IndivisualProductCard = ({product}) => {
   };
   const checkFavourite = async () => {
     setFavoriteLoading(true);
+    // console.log("error from product") ;
     const token = localStorage.getItem("krist-app-token");
-    await getFavouritesDetails(token, { productId: product?._id })
-      .then((res) => {
-        const isFavorite = res.data?.some(
-          (favorite) => favorite._id === product?._id
-        );
-
-        console.log(isFavorite) ;
-
-        setFavorite(isFavorite);
-        setFavoriteLoading(false);
-      })
-      .catch((err) => {
-        setFavoriteLoading(false);
-        dispatch(
-          opensnackBar({
-            message: err.message,
-            severity: "error",
-          })
-        );
-      });
+    // console.log(token) ;
+    if(token){
+      await getFavouritesDetails(token, { productId: product?._id })
+        .then((res) => {
+          const isFavorite = res.data?.some(
+            (favorite) => favorite._id === product?._id
+          );
+  
+          // console.log(isFavorite) ;
+  
+          setFavorite(isFavorite);
+          setFavoriteLoading(false);
+        })
+        .catch((err) => {
+          setFavoriteLoading(false);
+          dispatch(
+            opensnackBar({
+              message: err.message,
+              severity: "error",
+            })
+          );
+        });
+    }
   };
 
   useEffect(()=>{

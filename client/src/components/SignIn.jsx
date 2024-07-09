@@ -70,7 +70,7 @@ const SignIn = () => {
             severity: "success",
           })
         );
-        console.log(res.data);
+        // console.log(res.data);
         setUserDefined(1) ;
         navigate("/");
       } catch (err) {

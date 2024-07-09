@@ -6,7 +6,7 @@ import IndivisualProductCard from "../components/cards/IndivisualProductCard";
 import { getAllProducts } from "./../api/index.js";
 import { Link } from "react-router-dom";
 
-const Home = () => {
+const Home = ({ digitalData }) => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -27,6 +27,7 @@ const Home = () => {
 
   useEffect(() => {
     getProducts();
+    // digitalDataConfigure();
   }, []);
 
   return (

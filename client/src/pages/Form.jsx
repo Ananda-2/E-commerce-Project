@@ -25,7 +25,7 @@ const MyForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     // Handle form submission logic here
-    console.log(formData); // For demonstration, log form data to console
+    // console.log(formData); // For demonstration, log form data to console
   };
 
   return (

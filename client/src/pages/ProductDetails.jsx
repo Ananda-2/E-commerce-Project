@@ -14,7 +14,7 @@ import { opensnackBar } from "./../redux/reducers/snackBarSlice.js";
 
 const sizes = ["SM", "M", "L"];
 
-export default function ProductDetails() {
+export default function ProductDetails({digitalData}) {
   const [selected, setSelected] = useState(null);
   const { id } = useParams();
   const dispatch = useDispatch();
@@ -29,11 +29,15 @@ export default function ProductDetails() {
     setFavoriteLoading(true);
     console.log(product._id);
     const token = localStorage.getItem("krist-app-token");
+    if(!token){
+      alert("Login to add to Favourite");
+      return ;
+    }
     await addToFavourites(token, { productId: product?._id })
       .then((res) => {
         setFavorite(true);
         setFavoriteLoading(false);
-        console.log("added to fav");
+        // console.log("added to fav");
         alert("added to favourite");
       })
       .catch((err) => {
@@ -49,7 +53,7 @@ export default function ProductDetails() {
   };
   const removeFavorite = async () => {
     setFavoriteLoading(true);
-    console.log(product._id);
+    // console.log(product._id);
     const token = localStorage.getItem("krist-app-token");
     await removeFromFavorites(token, { productId: product?._id })
       .then((res) => {
@@ -69,6 +73,10 @@ export default function ProductDetails() {
   };
   const addCart = async () => {
     const token = localStorage.getItem("krist-app-token");
+    if(!token){
+      alert("Login to add");
+      return ;
+    }
     await addToCart(token, { productId: product?._id, quantity: 1 })
       .then((res) => {
         navigate("/cart");
@@ -85,13 +93,17 @@ export default function ProductDetails() {
   const checkFavourite = async () => {
     setFavoriteLoading(true);
     const token = localStorage.getItem("krist-app-token");
+    if(!token){
+      // alert("Login to add");
+      return ;
+    }
     await getFavouritesDetails(token, { productId: product?._id })
       .then((res) => {
         const isFavorite = res.data?.some(
           (favorite) => favorite._id === product?._id
         );
 
-        console.log(isFavorite);
+        // console.log(isFavorite);
 
         setFavorite(isFavorite);
         setFavoriteLoading(false);
@@ -125,8 +137,8 @@ export default function ProductDetails() {
       // similarProducts = similarProducts.filter(item => item._id !== product._id);
       
       // setLoading(false);
-      console.log(res.data);
-      console.log(category);
+      // console.log(res.data);
+      // console.log(category);
     });
   };
 
@@ -140,6 +152,9 @@ export default function ProductDetails() {
       setProduct(res.data);
       setCategory(res.data.category[0])
       // getSimilarProductsData();
+      if(res.data){
+        digitalData.product = res.data ;
+      }
     });
   };
   

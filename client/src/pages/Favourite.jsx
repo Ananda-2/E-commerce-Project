@@ -24,7 +24,7 @@ const Favourite = () => {
     await getFavouritesDetails(token).then((res) => {
       setProducts(res.data);
       setLoading(false);
-      console.log(res.data);
+      // console.log(res.data);
     });
   };
 

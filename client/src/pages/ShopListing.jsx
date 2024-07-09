@@ -31,7 +31,7 @@ const ShopListing = () => {
   const getSimilarProductsData = async () => {
     await getAllProducts(`categories=${id}`).then((res) => {
       setProducts(res.data);
-      console.log(res.data);
+      // console.log(res.data);
     });
   };
 

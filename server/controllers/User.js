@@ -48,7 +48,7 @@ export const UserSignIn = async (req,res,next) => {
         const { email , password } = req.body ;
         const alreadyExistUser = await User.findOne({email}).exec() ;
 
-        console.log(req.body) ;
+        // console.log(req.body) ;
         
 
         if(!alreadyExistUser){
@@ -80,8 +80,8 @@ try {
     const { productId } = req.body;
     const userJWT = req.user;
     const user = await User.findById(userJWT.id);
-    console.log(productId);
-    console.log("hello from fav func ");
+    // console.log(productId);
+    // console.log("hello from fav func ");
 
     if (!user.favourites.includes(productId)) {
     user.favourites.push(productId);
@@ -170,7 +170,7 @@ export const addToCart = async(req,res,next) => {
         //     return next("User not found . Please Login to add") ;
         // }
 
-        console.log(user) ;
+        // console.log(user) ;
 
         const ItemExistInCart = user.cart.findIndex((item) => 
             item?.product?.equals(productId)
