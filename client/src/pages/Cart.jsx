@@ -9,7 +9,7 @@ import { useDispatch } from "react-redux";
 import { opensnackBar } from "./../redux/reducers/snackBarSlice";
 import { DeleteOutline } from "@mui/icons-material";
 
-const Cart = () => {
+const Cart = ({digitalData,currentUser}) => {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -42,10 +42,14 @@ const Cart = () => {
 
   
   const addCart = async (id) => {
+    // console.log(id) ;
     const token = localStorage.getItem("krist-app-token");
     await addToCart(token, { productId: id, quantity: 1 })
       .then((res) => {
         setReload(!reload);
+        // console.log(res.data);
+        // setProducts(res.data.user.cart)
+        if(res.data)  getProducts();
       })
       .catch((err) => {
         setReload(!reload);
@@ -68,6 +72,7 @@ const Cart = () => {
     })
       .then((res) => {
         setReload(!reload);
+        if(res.data)  getProducts() ;
       })
       .catch((err) => {
         setReload(!reload);
@@ -90,6 +95,41 @@ const Cart = () => {
   useEffect(() => {
     getProducts();
   }, []);
+
+
+  function setDigitalData() {
+    // console.log("digital Data called");
+    try {
+      digitalData.page = {
+        pageUrl: window.location.href,
+        title: document.title,
+      };
+      digitalData.product = {};
+      if (currentUser) {
+        digitalData.user = {
+          userDetails: {
+            userId: currentUser._id,
+          },
+          loggedIn: true,
+        };
+      } else {
+        digitalData.user = {
+          userDetails: null,
+          loggedIn: false,
+        };
+      }
+
+      // console.log(digitalData);
+    } catch (e) {
+      console.error(e);
+    }
+  }
+  useEffect(() => {
+    // getProducts();
+    // console.log(products)
+    setDigitalData();
+    digitalData.product = products ;
+  }, [products]);
 
   const convertAddressToString = (addressObj) => {
     // Convert the address object to a string representation
@@ -208,6 +248,7 @@ const Cart = () => {
         
         
           {/* table details ----------------------------------------------------------------------- */}
+          
           <div className="container mx-auto max-w-[90%] mt-10 rounded-md ">
             <div className="bg-white shadow-md rounded my-6">
               <table className="min-w-max w-full table-auto">
@@ -221,35 +262,35 @@ const Cart = () => {
                 </thead>
                   <tbody className="text-gray-600 text-sm font-light">
                     {products?.map((item, index) => (
-                      <tr key={item.product.id} className="border-b border-gray-200 hover:bg-gray-100">
+                      <tr key={item.product?.id} className="border-b border-gray-200 hover:bg-gray-100">
                         <td className="py-3 px-6 text-left">
                           <div className="flex items-center">
-                            <img src={item.product.img} alt={item.product.name} className="w-10 h-10 rounded-full mr-2" />
+                            <img src={item.product?.img} alt={item.product?.name} className="w-10 h-10 rounded-full mr-2" />
                             <div>
-                              <div className="font-bold">{item.product.title}</div>
-                              <div className="text-gray-500">{item.product.desc}</div>
+                              <div className="font-bold">{item.product?.title}</div>
+                              <div className="text-gray-500">{item.product?.desc}</div>
                             </div>
                           </div>
                         </td>
-                        <td className="py-3 px-6 text-left">₹{item.product.price?.org}</td>
+                        <td className="py-3 px-6 text-left">₹{item.product?.price?.org}</td>
                         <td className="py-3 px-6 text-left">
                           <div className="flex items-center">
                             <button
-                              onClick={() => handleQuantityChange(index, item.quantity - 1)}
+                              onClick={() => removeCart(item.product?._id,1)}
                               className="text-gray-500 focus:outline-none p-5 "
                             >
                               -
                             </button>
                             <span className="mx-2 border-gray-500 border px-3 py-1 rounded-md ">{item.quantity}</span>
                             <button
-                              onClick={() => handleQuantityChange(index, item.quantity + 1)}
+                              onClick={() => addCart(item.product?._id)}
                               className="text-gray-500 focus:outline-none p-5"
                             >
                               +
                             </button>
                           </div>
                         </td>
-                        <td className="py-3 px-6 text-left">₹{calculateSubtotal(item.product.price?.org, item.quantity)}</td>
+                        <td className="py-3 px-6 text-left">₹{calculateSubtotal(item.product?.price?.org, item.quantity)}</td>
                       </tr>
                     ))}
                   </tbody>

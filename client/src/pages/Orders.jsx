@@ -3,7 +3,7 @@ import {getAllOrders , getProductDetails} from './../api/index.js'
 
 const productMap = {} ;
 
-function Orders () {
+function Orders ({digitalData,currentUser}) {
     const [orders,setOrders] = useState([]) ;
 
     const getOrderDetails = async () => {
@@ -17,8 +17,38 @@ function Orders () {
         }
     }
 
+    function setDigitalData() {
+        // console.log("digital Data called");
+        try {
+          digitalData.page = {
+            pageUrl: window.location.href,
+            title: document.title,
+          };
+          digitalData.product = {};
+          if (currentUser) {
+            digitalData.user = {
+              userDetails: {
+                userId: currentUser._id,
+              },
+              loggedIn: true,
+            };
+          } else {
+            digitalData.user = {
+              userDetails: null,
+              loggedIn: false,
+            };
+          }
+    
+          // console.log(digitalData);
+        } catch (e) {
+          console.error(e);
+        }
+      }
+
+
     useEffect(()=>{
         getOrderDetails();
+        setDigitalData();
     },[]);
 
     return (
@@ -29,9 +59,9 @@ function Orders () {
             
             : <>
 
-            { orders?.map((order) => (
+            { orders?.map((order , index) => (
                 <>
-                <div className="container mx-auto max-w-[90%] mt-10 rounded-md ">
+                <div key={index} className="container mx-auto max-w-[90%] mt-10 rounded-md ">
                     <div className="bg-white shadow-md rounded my-6">
                     <table className="min-w-max w-full table-auto">
                         <thead>

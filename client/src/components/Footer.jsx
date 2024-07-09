@@ -24,11 +24,11 @@ const currentYear = new Date().getFullYear();
 export function Footer() {
   return (
     <div className="bg-gray-800 p-10 flex justify-around  w-full " >
-        {data.map((d) =>(
-          <div className="text-center text-white  cursor-pointer">
+        {data.map((d,index) =>(
+          <div key={index} className="text-center text-white  cursor-pointer">
             <div className="text-white font-bold mb-5 cursor-pointer hover:text-blue-600  ">{d.title}</div>
-            {d.links.map((list)=>(
-              <div className="font-light p-1 hover:text-green-400">{list}</div>
+            {d.links.map((list , ind)=>(
+              <div key={ind} className="font-light p-1 hover:text-green-400">{list}</div>
             ))}
             </div>
         ))}

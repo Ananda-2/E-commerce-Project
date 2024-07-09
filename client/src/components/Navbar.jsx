@@ -11,8 +11,7 @@ import {
 } from "@mui/icons-material";
 import { Avatar } from "@mui/material";
 import { useDispatch } from "react-redux";
-import {logout} from '../redux/reducers/userSlice.js'
-
+import { logout } from "../redux/reducers/userSlice.js";
 
 const Nav = styled.div`
   background-color: ${({ theme }) => theme.bg};
@@ -25,7 +24,7 @@ const Nav = styled.div`
   top: 0;
   z-index: 10;
   color: white;
-  background-color:black;
+  background-color: black;
 `;
 const NavbarContainer = styled.div`
   width: 100%;
@@ -49,7 +48,7 @@ const NavLogo = styled.div`
 `;
 const Logo = styled.img`
   height: 34px;
-  margin-right : 10px ;
+  margin-right: 10px;
 `;
 const NavItems = styled.ul`
   width: 100%;
@@ -75,7 +74,7 @@ const Navlink = styled(NavLink)`
     color: Purple;
   }
   &.active {
-    color:Purple;
+    color: Purple;
   }
 `;
 
@@ -145,44 +144,45 @@ const TextButton = styled.div`
   }
 `;
 
-const Navbar = ({ openAuth, setOpenAuth, currentUser , digitalData }) => {
+const Navbar = ({ openAuth, setOpenAuth, currentUser, digitalData }) => {
   const [isOpen, setIsOpen] = useState(false);
   const dispatch = useDispatch();
   // console.log(currentUser) ;
 
+  // function setDigitalData() {
+  //   console.log("digital Data called");
+  //   try {
+  //     digitalData.page = {
+  //       pageUrl: window.location.href,
+  //       title: document.title,
+  //     };
+  //     digitalData.product = {};
+  //     if (currentUser) {
+  //       digitalData.user = {
+  //         userDetails: {
+  //           userId: currentUser._id,
+  //         },
+  //         loggedIn: true,
+  //       };
+  //     } else {
+  //       digitalData.user = {
+  //         userDetails: null,
+  //         loggedIn: false,
+  //       };
+  //     }
 
-function setDigitalData () {
-  try{
-    digitalData.page =  {
-        pageUrl : window.location.href ,
-        title : document.title
-    }
-    if(currentUser){
-      digitalData.user = {
-        userDetails : currentUser,
-        loggedIn : true ,
-      }
-    }else{
-      digitalData.user = {
-          userDetails : null ,
-          loggedIn : false ,
-      }
-    }
+  //     // console.log(digitalData);
+  //   } catch (e) {
+  //     console.error(e);
+  //   }
+  // }
 
-    // console.log(digitalData);
-  }catch(e){
-    console.error(e) ;
-  }
-}
+  // 7797503405 
+  // useEffect(() => {
+  //   console.log("updated");
+  //   setDigitalData();
+  // },[]);
 
-useEffect(() => {
-  setDigitalData();
-},[])
-
-
-
-
-  
   return (
     <Nav className=" bg-black ">
       <NavbarContainer>
@@ -192,7 +192,7 @@ useEffect(() => {
 
         <NavLogo>
           <Logo src={LogoImg} />
-          <NavLink to = "/">ShopSphere</NavLink>
+          <NavLink to="/">ShopSphere</NavLink>
         </NavLogo>
 
         <NavItems>
@@ -224,7 +224,6 @@ useEffect(() => {
             {/* <Navlink to="/search">
             <SearchRounded sx={{ color: "inherit", fontSize: "30px" }} />
           </Navlink> */}
-
 
             {currentUser ? (
               <Button text="Logout" small onClick={() => dispatch(logout())} />
@@ -287,7 +286,7 @@ useEffect(() => {
         </Mobileicons>
 
         <ButtonContainer>
-        {/* <Navlink to="/category">
+          {/* <Navlink to="/category">
             <SearchRounded sx={{ color: "inherit", fontSize: "30px" }} />
           </Navlink> */}
 

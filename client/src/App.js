@@ -43,14 +43,14 @@ function App() {
         <Container>
           <Navbar openAuth={openAuth} setOpenAuth={setOpenAuth} currentUser={currentUser} digitalData = {window.digitalData} />
           <Routes>
-            <Route path="/" exact element = {<Home/>}/> 
-            <Route path="/Category" exact element = {<Category/>}/> 
-            <Route path="/Category/:id" exact element = {<ShopListing/>}/> 
-            <Route path="/favourite" exact element = {<Favourite/>}/> 
-            <Route path="/cart" exact element = {<Cart/>}/> 
+            <Route path="/" exact element = {<Home currentUser={currentUser} digitalData = {window.digitalData} />}/> 
+            <Route path="/Category" exact element = {<Category currentUser={currentUser} digitalData = {window.digitalData} />}/> 
+            <Route path="/Category/:id" exact element = {<ShopListing currentUser={currentUser} digitalData = {window.digitalData} />}/> 
+            <Route path="/favourite" exact element = {<Favourite  currentUser={currentUser} digitalData = {window.digitalData}  />}/> 
+            <Route path="/cart" exact element = {<Cart  currentUser={currentUser} digitalData = {window.digitalData} />}/> 
             {/* <Route path="/search" exact element = {<SearchPage/>}/>  */}
-            <Route path="/Orders" exact element = {<Orders/>}/> 
-            <Route path="/product/:id" exact element = {<ProductDetails digitalData = {window.digitalData} />}/> 
+            <Route path="/Orders" exact element = {<Orders currentUser={currentUser} digitalData = {window.digitalData} />}/> 
+            <Route path="/product/:id" exact element = {<ProductDetails currentUser={currentUser} digitalData = {window.digitalData} />}/> 
           </Routes>
 
           {openAuth && ( <Authentication openAuth={openAuth} setOpenAuth={setOpenAuth} currentUser = {currentUser}/>)}

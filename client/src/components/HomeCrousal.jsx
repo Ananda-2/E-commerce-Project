@@ -59,7 +59,7 @@ export default function CustomCarousel() {
         </button>
       </div>
       {images.map((item, index) => (
-        <>
+        <div key = {index}>
           <div
             key={index}
             className="absolute top-0 left-0 w-full h-full object-contain transition-transform duration-500 ease-in-out [clip-path: polygon(0 0, 100% 0, 100% 100%, 0 79%)]"
@@ -75,14 +75,14 @@ export default function CustomCarousel() {
             }}
           >
             {/* <div className="z-10 absolute top-2 right-32 text-2xl font-extrabold text-white ">Beats to</div> */}
-            <div className="z-10 absolute top-10 right-32 text-4xl font-extrabold text-white ">
+            <div key={index} className="z-10 absolute top-10 right-32 text-4xl font-extrabold text-white ">
               {item.name}
             </div>
             <div className=" z-10 absolute top-24 mb-5 right-32 text-7xl font-extrabold text-gray-300  ">
               {item.desc}
             </div>
           </div>
-        </>
+        </div>
       ))}
     </div>
   );

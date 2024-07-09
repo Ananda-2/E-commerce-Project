@@ -7,7 +7,7 @@ import { getAllProducts } from "./../api/index";
 import Pagination from "../components/Pagination";
 import { useParams } from "react-router-dom";
 
-const ShopListing = () => {
+const ShopListing = ({digitalData,currentUser}) => {
   const [products, setProducts] = useState();
   const [currentPage, setCurrentPage] = useState(1);
   const [postPerPage, setPostPerPage] = useState(8);
@@ -34,6 +34,40 @@ const ShopListing = () => {
       // console.log(res.data);
     });
   };
+
+
+  function setDigitalData() {
+    // console.log("digital Data called");
+    try {
+      digitalData.page = {
+        pageUrl: window.location.href,
+        title: document.title,
+      };
+      digitalData.product = {};
+      if (currentUser) {
+        digitalData.user = {
+          userDetails: {
+            userId: currentUser._id,
+          },
+          loggedIn: true,
+        };
+      } else {
+        digitalData.user = {
+          userDetails: null,
+          loggedIn: false,
+        };
+      }
+
+      // console.log(digitalData);
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  useEffect(() => {
+    // console.log("updated");
+    setDigitalData();
+  },[]);
 
   useEffect(() => {
     getSimilarProductsData();
@@ -63,11 +97,11 @@ const ShopListing = () => {
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
-                  stroke-width="2"
+                  strokeWidth="2"
                 >
                   <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
                     d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
                   />
                 </svg>

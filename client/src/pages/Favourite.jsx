@@ -10,7 +10,7 @@ import { opensnackBar } from "./../redux/reducers/snackBarSlice";
 import { DeleteOutline } from "@mui/icons-material";
 import IndivisualProductCard from './../components/cards/IndivisualProductCard'
 
-const Favourite = () => {
+const Favourite = ({digitalData,currentUser}) => {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -28,9 +28,46 @@ const Favourite = () => {
     });
   };
 
+
+  function setDigitalData() {
+    // console.log("digital Data called");
+    try {
+      digitalData.page = {
+        pageUrl: window.location.href,
+        title: document.title,
+      };
+      digitalData.product = {};
+      if (currentUser) {
+        digitalData.user = {
+          userDetails: {
+            userId: currentUser._id,
+          },
+          loggedIn: true,
+        };
+      } else {
+        digitalData.user = {
+          userDetails: null,
+          loggedIn: false,
+        };
+      }
+
+      // console.log(digitalData);
+    } catch (e) {
+      console.error(e);
+    }
+  }
+  
   useEffect(()=>{
+    setDigitalData();
     getProducts();
   },[])
+
+
+
+
+  useEffect(()=>{
+    digitalData.product = products ;
+  },[products]) ;
 
   return (
     <div className="min-h-screen">

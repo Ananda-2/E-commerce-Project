@@ -14,7 +14,7 @@ import { opensnackBar } from "./../redux/reducers/snackBarSlice.js";
 
 const sizes = ["SM", "M", "L"];
 
-export default function ProductDetails({digitalData}) {
+export default function ProductDetails({digitalData,currentUser}) {
   const [selected, setSelected] = useState(null);
   const { id } = useParams();
   const dispatch = useDispatch();
@@ -158,7 +158,36 @@ export default function ProductDetails({digitalData}) {
     });
   };
   
+
+  function setDigitalData() {
+    // console.log("digital Data called");
+    try {
+      digitalData.page = {
+        pageUrl: window.location.href,
+        title: document.title,
+      };
+      digitalData.product = {};
+      if (currentUser) {
+        digitalData.user = {
+          userDetails: {
+            userId: currentUser._id,
+          },
+          loggedIn: true,
+        };
+      } else {
+        digitalData.user = {
+          userDetails: null,
+          loggedIn: false,
+        };
+      }
+
+      // console.log(digitalData);
+    } catch (e) {
+      console.error(e);
+    }
+  }
   useEffect(() => {
+    setDigitalData();
     getProduct();
     
   }, []);
